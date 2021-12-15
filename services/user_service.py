@@ -15,11 +15,15 @@ from config.app import get_settings
 CONFIG = get_settings()
 
 class UserService:
-    async def authenticate_user(self, db_session: Session, email: str, password: str) -> OauthToken:
+    async def get_user_by_id(self, db_session: Session, id: str) -> Optional[DescribeUser]:
+        user = db_session.query(User).filter(User.id == id).first()
+        return user
+        
+    async def authenticate_user(self, db_session: Session, email: str, password: str) -> Optional[OauthToken]:
         user = db_session.query(User).filter(User.email == email).first()
 
         if oauthService.verify_password(password, user.password) is False:
-            raise Exception("user not found!")
+            return None
 
         expire = datetime.now() + timedelta(seconds=CONFIG.OAUTH_EXPIRATION_TIME)
         access_token = oauthService.create_access_token(user, expire)

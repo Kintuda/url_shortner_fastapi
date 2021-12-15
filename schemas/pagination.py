@@ -21,5 +21,5 @@ class Metadata(BaseModel):
     links: PaginationLinks
 
 class PaginatedResponse(GenericModel, Generic[DataT]):
-    data: Optional[DataT]
-    pagination: Optional[Metadata]
+    data: Optional[DataT] = []
+    pagination: Optional[Metadata] = {}

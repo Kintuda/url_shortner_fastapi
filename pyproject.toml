@@ -17,6 +17,7 @@ psycopg2 = "^2.9.2"
 FastAPI-SQLAlchemy = "^0.2.1"
 python-dotenv = "^0.19.2"
 python-multipart = "^0.0.5"
+shortuuid = "^1.0.8"
 
 [tool.poetry.dev-dependencies]
 
